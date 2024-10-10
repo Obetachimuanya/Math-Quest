@@ -8,6 +8,7 @@ let score = document.getElementById("score");
 let question = document.getElementById("question");
 let buttons = document.getElementsByTagName("button");
 let start = document.getElementById("start-btn");
+let designCredit = document.getElementById('design-credit');
 let fScore = document.getElementById("final-score");
 let startBox = document.getElementById("start-game");
 let gameBox = document.getElementById("in-game");
@@ -222,26 +223,67 @@ buttons[3].addEventListener('click', () => {
 
 
 
+// function timed() {
+//     clearInterval(t); // Clear any previous interval to avoid multiple intervals running
+//     t = setInterval(() => {
+//         let progressValue = parseInt(progress.style.width); // Get the current width value as a number
+
+//         // Decrease the progress bar width
+//         progressValue -= 1;
+//         progress.style.width = progressValue + "%"; // Update the width of the progress bar
+
+    
+//         let red = (100 - progressValue) * 2.55;  // Red value increases as the width decreases
+//         let green = progressValue * 2.55;  // Green value decreases as the width decreases
+//         progress.style.backgroundColor = `rgb(${red}, ${green}, 0)`;  // Color transition from green to red
+
+//         console.log("called");
+//         // Check if progress has reached 0
+//         if (progressValue <= 0) {
+//             clearInterval(t)
+//             nextQuestion();  
+//         }
+//     }, 210);  
+// }
+let countdownSound = document.getElementById('countdown-sound');  // Get the countdown sound element
+
 function timed() {
-    clearInterval(t); // Clear any previous interval to avoid multiple intervals running
+    clearInterval(t); 
+    countdownSound.pause();  
+    countdownSound.currentTime = 0;
+
     t = setInterval(() => {
         let progressValue = parseInt(progress.style.width); // Get the current width value as a number
 
-        // Decrease the progress bar width
+        // Decrease the progress bar width by 1%
         progressValue -= 1;
-        progress.style.width = progressValue + "%"; // Update the width of the progress bar
+        progress.style.width = progressValue + "%"; 
 
-    
-        let red = (100 - progressValue) * 2.55;  // Red value increases as the width decreases
-        let green = progressValue * 2.55;  // Green value decreases as the width decreases
-        progress.style.backgroundColor = `rgb(${red}, ${green}, 0)`;  // Color transition from green to red
+       
+        let red = (100 - progressValue) * 2.55;  
+        let green = progressValue * 2.55; 
+        progress.style.backgroundColor = `rgb(${red}, ${green}, 0)`;  
 
-        console.log("called");
+        // Play ticking sound when progressValue is below a certain threshold (e.g., 10%)
+        if (progressValue <= 35 && progressValue > 0) {
+            countdownSound.play();  // Play ticking sound
+        }
+
         // Check if progress has reached 0
         if (progressValue <= 0) {
-            clearInterval(t)
+            clearInterval(t);
+            countdownSound.pause();
+            countdownSound.currentTime = 0;  
             nextQuestion();  
         }
     }, 210);  
 }
+
+
+
+// Add event listener to the start button
+startButton.addEventListener('click', () => {
+    designCredit.style.display = 'none';  
+    restart();  
+});
 
