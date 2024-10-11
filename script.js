@@ -8,6 +8,8 @@ let score = document.getElementById("score");
 let question = document.getElementById("question");
 let buttons = document.getElementsByTagName("button");
 let start = document.getElementById("start-btn");
+let wrongAnswer = document.getElementById('wrong-answer');  // Get the countdown sound element
+let correctSound = document.getElementById('correct-sound');  // Get the countdown sound element
 let designCredit = document.getElementById('design-credit');
 let fScore = document.getElementById("final-score");
 let startBox = document.getElementById("start-game");
@@ -125,18 +127,15 @@ function getScore() {
 function doWhenCorrect(i) {
     buttons[i].style.color = "#fff";
     buttons[i].style.backgroundColor = "green";
+    correctSound .play();
     getScore();
 }
-
-// function doWhenIncorrect(i) {
-//     buttons[i].style.color = "#fff";
-//     buttons[i].style.backgroundColor = "#fb3640";
-//     // console.log("wrong");
-// }
 
 function doWhenIncorrect(i) {
     buttons[i].style.color = "#fff"; // Change text color to white
     buttons[i].style.backgroundColor = "#fb3640"; // Red background for wrong answers
+    wrongAnswer.play();
+    
 
     // Add the shake animation class to the button
     buttons[i].classList.add('shake');
@@ -222,7 +221,7 @@ buttons[3].addEventListener('click', () => {
 });
 
 
-
+//  previously commented
 // function timed() {
 //     clearInterval(t); // Clear any previous interval to avoid multiple intervals running
 //     t = setInterval(() => {
@@ -245,6 +244,7 @@ buttons[3].addEventListener('click', () => {
 //         }
 //     }, 210);  
 // }
+// ended here
 let countdownSound = document.getElementById('countdown-sound');  // Get the countdown sound element
 
 function timed() {
@@ -286,4 +286,5 @@ startButton.addEventListener('click', () => {
     designCredit.style.display = 'none';  
     restart();  
 });
+
 
